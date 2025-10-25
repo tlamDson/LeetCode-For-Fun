@@ -1,19 +1,25 @@
-class Solution(object):
-    def isValid(s):
-        if len(s) % 2 != 0:
-            return False
+def isValid( s):
+    if len(s) % 2 != 0:
+        return False
+    stack = []
+    mapping = {
+        ')':'(',
+        '}':'{',
+        ']':'['}
+    for c in s: 
+        if c in mapping:
+            # mapping[c] is the values
+            if stack and stack[-1] == mapping[c]:
+                stack.pop()
+            else:
+                return False
+        else:
+            stack.append(c)
+    return True if not stack else False
 
-        stack = []  
-        mapping = {'(': ')', '[': ']', '{': '}'} 
-
-        for char in s:
-            if char in mapping:  
-                stack.append(mapping[char])  
-            else:  
-                if not stack or stack.pop() != char:
-                    return False
-
-        return len(stack) == 0
+    
+           
 
 
-
+        
+print(isValid("([{}])"))       
